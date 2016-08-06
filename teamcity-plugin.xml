@@ -18,14 +18,14 @@
 <teamcity-plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:noNamespaceSchemaLocation="urn:shemas-jetbrains-com:teamcity-plugin-v1-xml">
     <info>
-        <name>aws-codedeploy-plugin</name>
-        <display-name>AWS CodeDeploy</display-name>
+        <name>aws-elasticbeanstalk-plugin</name>
+        <display-name>AWS Elastic Beanstalk</display-name>
         <version>@Plugin_Version@</version>
-        <description>Build runner for deploying application to AWS EC2 and on-premise instances using AWS CodeDeploy</description>
-        <download-url>https://github.com/JetBrains/teamcity-aws-codedeploy-plugin</download-url>
+        <description>Build runner for deploying application to AWS Elastic Beanstalk</description>
+        <download-url>https://github.com/rtfpessoa/teamcity-aws-elasticbeanstalk-plugin</download-url>
         <vendor>
-            <name>JetBrains, s.r.o.</name>
-            <url>http://www.jetbrains.com</url>
+            <name>rtfpessoa</name>
+            <url>https://github.com/rtfpessoa/teamcity-aws-elasticbeanstalk-plugin</url>
         </vendor>
     </info>
     <deployment use-separate-classloader="true"/>

@@ -19,19 +19,19 @@ apply plugin: 'com.github.rodm.teamcity-server'
 
 dependencies {
     agent project(':amazon-util')
-    agent project(':aws-codedeploy-common')
-    agent project(':aws-codedeploy-agent')
+    agent project(':aws-elasticbeanstalk-common')
+    agent project(':aws-elasticbeanstalk-agent')
 
     server project(':amazon-util')
-    server project(':aws-codedeploy-common')
-    server project(':aws-codedeploy-server')
+    server project(':aws-elasticbeanstalk-common')
+    server project(':aws-elasticbeanstalk-server')
 }
 
 def awsSDKFiles = {project(':amazon-util').configurations.compile.files({it.group == 'com.amazonaws' && it.name == 'aws-java-sdk'})}
 
 teamcity {
     agent {
-        descriptor = project(':aws-codedeploy-agent').file('teamcity-plugin.xml')
+        descriptor = project(':aws-elasticbeanstalk-agent').file('teamcity-plugin.xml')
         files {
             into('lib') {
                 from awsSDKFiles()
@@ -41,7 +41,7 @@ teamcity {
 
     server {
         descriptor = file("$rootDir/teamcity-plugin.xml")
-        tokens = [Plugin_Version: 'SNAPSHOT-' + new Date().format('yyyyMMddHHmm')]
+        tokens = [Plugin_Version: '1.0.0-alpha1']
         files {
             into('server') {
                 from awsSDKFiles()

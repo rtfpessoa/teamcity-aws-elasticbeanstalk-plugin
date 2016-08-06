@@ -20,11 +20,10 @@ import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-/**
- * @author vbedrosova
- */
 public final class AWSRegions {
   private static final Map<String, String> REGION_NAMES_FOR_WEB;
 
@@ -45,13 +44,13 @@ public final class AWSRegions {
   }
 
   @NotNull
-  public static String getRegionNameForWeb(@NotNull String regionCode){
+  public static String getRegionNameForWeb(@NotNull String regionCode) {
     final String niceName = REGION_NAMES_FOR_WEB.get(regionCode);
     return niceName == null ? regionCode : niceName;
   }
 
   @NotNull
-  public static Map<String,String> getAllRegions(){
+  public static Map<String, String> getAllRegions() {
     return Collections.unmodifiableMap(REGION_NAMES_FOR_WEB);
   }
 
