@@ -4,7 +4,7 @@
 [![CircleCI](https://circleci.com/gh/rtfpessoa/teamcity-aws-elasticbeanstalk-plugin.svg?style=svg)](https://circleci.com/gh/rtfpessoa/teamcity-aws-elasticbeanstalk-plugin)
 [![Dependency Status](https://dependencyci.com/github/rtfpessoa/teamcity-aws-elasticbeanstalk-plugin/badge)](https://dependencyci.com/github/rtfpessoa/teamcity-aws-elasticbeanstalk-plugin)
 
-teamcity-aws-elasticbeanstalk-plugin is a **VERY EARLY STAGE** Teamcity plugin that allows deployments
+teamcity-aws-elasticbeanstalk-plugin is a Teamcity plugin that allows deployments
 to Elastic Beanstalk.
 
 This plugin started from the code in [teamcity-aws-codedeploy-plugin](https://github.com/JetBrains/teamcity-aws-codedeploy-plugin)
@@ -16,7 +16,8 @@ and was adapted for Elastic Beanstalk and slightly ajusted.
 
 ## Release
 
-* 1.0.0-alpha1 [aws-elasticbeanstalk-plugin.zip](https://github.com/rtfpessoa/teamcity-aws-elasticbeanstalk-plugin/releases/download/1.0.0-alpha1/aws-elasticbeanstalk-plugin.zip)
+* [1.0.0](https://github.com/rtfpessoa/teamcity-aws-elasticbeanstalk-plugin/releases/tag/v1.0.0)
+* [Previous versions](https://github.com/rtfpessoa/teamcity-aws-elasticbeanstalk-plugin/releases)
 
 ## Contributions
 
@@ -26,7 +27,7 @@ I will try to review them as soon as possible.
 
 ## License
 
-Copyright 2016 Rodrigo Fernandes. Licensed under the Apache License, Version 2.0 (the "License").
+Licensed under the Apache License, Version 2.0 (the "License").
 
 ## Thanks
 

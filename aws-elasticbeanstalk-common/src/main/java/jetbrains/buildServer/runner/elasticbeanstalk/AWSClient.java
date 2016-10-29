@@ -24,29 +24,26 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class AWSClient {
 
   @NotNull
   private AWSElasticBeanstalkClient myElasticBeanstalkClient;
-  @Nullable
-  private String myDescription;
   @NotNull
   private Listener myListener = new Listener();
+  @NotNull
+  private HashMap<Integer, EventDescription> pastEvents = new HashMap<>();
 
-  public AWSClient(@NotNull AWSClients clients) {
+  AWSClient(@NotNull AWSClients clients) {
     myElasticBeanstalkClient = clients.createElasticBeanstalkClient();
   }
 
   @NotNull
-  public AWSClient withDescription(@NotNull String description) {
-    myDescription = description;
-    return this;
-  }
-
-  @NotNull
-  public AWSClient withListener(@NotNull Listener listener) {
+  AWSClient withListener(@NotNull Listener listener) {
     myListener = listener;
     return this;
   }
@@ -59,8 +56,8 @@ public class AWSClient {
    * @param s3BucketName valid S3 bucket name
    * @param s3ObjectKey  valid S3 object key
    */
-  public void createApplicationVersion(@NotNull String applicationName, @NotNull String versionLabel,
-                                       @NotNull String s3BucketName, @NotNull String s3ObjectKey) {
+  void createApplicationVersion(@NotNull String applicationName, @NotNull String versionLabel,
+                                @NotNull String s3BucketName, @NotNull String s3ObjectKey) {
     try {
       myListener.createVersionStarted(applicationName, versionLabel, s3BucketName, s3ObjectKey);
       S3Location location = new S3Location().withS3Bucket(s3BucketName).withS3Key(s3ObjectKey);
@@ -85,15 +82,15 @@ public class AWSClient {
    * @param waitTimeoutSec  seconds to wait for the created deployment finish or fail
    * @param waitIntervalSec seconds between polling ElasticBeanstalk for the created deployment status
    */
-  public void updateEnvironmentAndWait(@NotNull String environmentName, @NotNull String versionLabel,
-                                       int waitTimeoutSec, int waitIntervalSec) {
+  void updateEnvironmentAndWait(@NotNull String environmentName, @NotNull String versionLabel,
+                                int waitTimeoutSec, int waitIntervalSec) {
     doUpdateAndWait(environmentName, versionLabel, true, waitTimeoutSec, waitIntervalSec);
   }
 
   /**
    * The same as {@link #updateEnvironmentAndWait} but without waiting
    */
-  public void updateEnvironment(@NotNull String environmentName, @NotNull String versionLabel) {
+  void updateEnvironment(@NotNull String environmentName, @NotNull String versionLabel) {
     doUpdateAndWait(environmentName, versionLabel, false, null, null);
   }
 
@@ -104,6 +101,9 @@ public class AWSClient {
       UpdateEnvironmentRequest request = new UpdateEnvironmentRequest()
         .withEnvironmentName(environmentName)
         .withVersionLabel(versionLabel);
+
+      long startTime = System.currentTimeMillis();
+
       UpdateEnvironmentResult result = myElasticBeanstalkClient.updateEnvironment(request);
 
       String environmentId = result.getEnvironmentId();
@@ -111,29 +111,46 @@ public class AWSClient {
       myListener.deploymentStarted(environmentId, environmentName, versionLabel);
 
       if (wait) {
-        waitForDeployment(environmentId, versionLabel, waitTimeoutSec, waitIntervalSec);
+        waitForDeployment(environmentId, versionLabel, startTime, waitTimeoutSec, waitIntervalSec);
       }
     } catch (Throwable t) {
       processFailure(t);
     }
   }
 
-  private void waitForDeployment(@NotNull String environmentId, String versionLabel, int waitTimeoutSec, int waitIntervalSec) {
-    myListener.deploymentWaitStarted(environmentId);
+  private void waitForDeployment(@NotNull String environmentId, String versionLabel, long startTime,
+                                 int waitTimeoutSec, int waitIntervalSec) {
+    myListener.deploymentWaitStarted(getEnvironment(environmentId).getEnvironmentName());
 
-    EnvironmentDescription environment = getEnvironment(environmentId);
-    String status = getHumanReadableStatus(environment.getStatus());
-    List<EventDescription> events = getErrorEvents(environmentId, versionLabel);
-    boolean hasError = events.size() > 0;
+    EnvironmentDescription environment;
+    String status;
+    List<EventDescription> newEvents;
+    List<EventDescription> errorEvents;
+    boolean hasError;
 
-    long startTime = System.currentTimeMillis();
+    Date startDate = new Date(startTime);
 
-    while (status.equals("updating") && !hasError) {
-      myListener.deploymentInProgress(environmentId);
+    while (true) {
+      environment = getEnvironment(environmentId);
+
+      myListener.deploymentInProgress(environment.getEnvironmentName());
+
+      status = getHumanReadableStatus(environment.getStatus());
+      newEvents = getNewEvents(environmentId, startDate);
+
+      for (EventDescription event : newEvents) {
+        myListener.deploymentUpdate(event.getMessage());
+      }
 
       if (System.currentTimeMillis() - startTime > waitTimeoutSec * 1000) {
-        myListener.deploymentFailed(environmentId, environment.getApplicationName(), versionLabel, true, null);
+        myListener.deploymentFailed(environment.getApplicationName(), environment.getEnvironmentName(), versionLabel, true, null);
         return;
+      }
+
+      errorEvents = getErrorEvents(environmentId, versionLabel);
+      hasError = errorEvents.size() > 0;
+      if (!status.equals("updating") || hasError) {
+        break;
       }
 
       try {
@@ -142,22 +159,17 @@ public class AWSClient {
         processFailure(e);
         return;
       }
-
-      environment = getEnvironment(environmentId);
-      status = getHumanReadableStatus(environment.getStatus());
-      events = getErrorEvents(environmentId, versionLabel);
-      hasError = events.size() > 0;
     }
 
     if (isSuccess(environment, versionLabel)) {
-      myListener.deploymentSucceeded(environmentId, environment.getApplicationName(), versionLabel);
+      myListener.deploymentSucceeded(versionLabel);
     } else {
-      Listener.ErrorInfo errorEvent = events.size() > 0 ? getErrorInfo(events.get(0)) : null;
-      myListener.deploymentFailed(environmentId, environment.getApplicationName(), versionLabel, false, errorEvent);
+      Listener.ErrorInfo errorEvent = hasError ? getErrorInfo(errorEvents.get(0)) : null;
+      myListener.deploymentFailed(environment.getApplicationName(), environment.getEnvironmentName(), versionLabel, false, errorEvent);
     }
   }
 
-  public EnvironmentDescription getEnvironment(@NotNull String environmentId) {
+  private EnvironmentDescription getEnvironment(@NotNull String environmentId) {
     return myElasticBeanstalkClient.describeEnvironments(new DescribeEnvironmentsRequest().withEnvironmentIds(environmentId))
       .getEnvironments().get(0);
   }
@@ -169,6 +181,24 @@ public class AWSClient {
       .withVersionLabel(versionLabel)
       .withSeverity(EventSeverity.ERROR))
       .getEvents();
+  }
+
+  private List<EventDescription> getNewEvents(@NotNull String environmentId, @NotNull Date startTime) {
+    List<EventDescription> events = myElasticBeanstalkClient.describeEvents(new DescribeEventsRequest()
+      .withEnvironmentId(environmentId)
+      .withStartTime(startTime)
+      .withMaxRecords(20))
+      .getEvents();
+
+    List<EventDescription> newEvents = new ArrayList<>();
+    for (EventDescription event : events) {
+      if (!pastEvents.containsKey(event.hashCode())) {
+        newEvents.add(event);
+        pastEvents.put(event.hashCode(), event);
+      }
+    }
+
+    return newEvents;
   }
 
   private boolean isSuccess(@NotNull EnvironmentDescription environment, @NotNull String versionLabel) {
@@ -203,7 +233,7 @@ public class AWSClient {
     return (msg != null && msg.endsWith(".")) ? msg.substring(0, msg.length() - 1) : msg;
   }
 
-  public static class Listener {
+  static class Listener {
     void createVersionStarted(@NotNull String applicationName, @NotNull String versionLabel,
                               @NotNull String s3BucketName, @NotNull String s3ObjectKey) {
     }
@@ -212,26 +242,29 @@ public class AWSClient {
                                @NotNull String s3BucketName, @NotNull String s3ObjectKey) {
     }
 
-    void deploymentStarted(@NotNull String environmentId, @NotNull String applicationName, @NotNull String versionLabel) {
+    void deploymentStarted(@NotNull String environmentId, @NotNull String environmentName, @NotNull String versionLabel) {
     }
 
-    void deploymentWaitStarted(@NotNull String environmentId) {
+    void deploymentWaitStarted(@NotNull String environmentName) {
     }
 
-    void deploymentInProgress(@NotNull String environmentId) {
+    void deploymentInProgress(@NotNull String environmentName) {
     }
 
-    void deploymentFailed(@NotNull String environmentId, @NotNull String applicationName, @NotNull String versionLabel,
+    void deploymentUpdate(@NotNull String message) {
+    }
+
+    void deploymentFailed(@NotNull String applicationName, @NotNull String environmentName, @NotNull String versionLabel,
                           @NotNull Boolean hasTimeout, @Nullable ErrorInfo errorInfo) {
     }
 
-    void deploymentSucceeded(@NotNull String environmentId, @NotNull String applicationName, @NotNull String versionLabel) {
+    void deploymentSucceeded(@NotNull String versionLabel) {
     }
 
     void exception(@NotNull AWSException exception) {
     }
 
-    public static class ErrorInfo {
+    static class ErrorInfo {
       @Nullable
       String severity;
       @Nullable

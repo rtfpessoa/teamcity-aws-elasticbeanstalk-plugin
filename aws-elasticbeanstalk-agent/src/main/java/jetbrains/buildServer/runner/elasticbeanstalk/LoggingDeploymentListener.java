@@ -34,8 +34,8 @@ class LoggingDeploymentListener extends AWSClient.Listener {
   @NotNull
   private static final Logger LOG = Logger.getInstance(Loggers.VCS_CATEGORY + ElasticBeanstalkRunner.class);
 
-  static final String CREATE_VERSION = "create version";
-  static final String UPDATE_ENVIRONMENT = "update environment";
+  static final String CREATE_VERSION = "Create version";
+  static final String UPDATE_ENVIRONMENT = "Update environment";
 
   @NotNull
   private final Map<String, String> myRunnerParameters;
@@ -65,24 +65,29 @@ class LoggingDeploymentListener extends AWSClient.Listener {
   }
 
   @Override
-  void deploymentStarted(@NotNull String environmentId, @NotNull String applicationName, @NotNull String versionLabel) {
+  void deploymentStarted(@NotNull String applicationName, @NotNull String environmentName, @NotNull String versionLabel) {
     open(UPDATE_ENVIRONMENT);
-    log(String.format("Started deployment of application %s version %s to %s", applicationName, versionLabel, environmentId));
+    log(String.format("Started deployment of application %s version %s to %s", applicationName, versionLabel, environmentName));
   }
 
   @Override
-  void deploymentWaitStarted(@NotNull String environmentId) {
+  void deploymentWaitStarted(@NotNull String environmentName) {
     log("Waiting for deployment finish");
-    log(String.format("Waiting for deployment on environment %s", environmentId));
+    log(String.format("Waiting for deployment on environment %s", environmentName));
   }
 
   @Override
-  void deploymentInProgress(@NotNull String environmentId) {
-    progress(String.format("Waiting for deployment on environment %s", environmentId));
+  void deploymentInProgress(@NotNull String environmentName) {
+    progress(String.format("Waiting for deployment on environment %s", environmentName));
   }
 
   @Override
-  void deploymentFailed(@NotNull String environmentId, @NotNull String applicationName, @NotNull String versionLabel,
+  void deploymentUpdate(@NotNull String message) {
+    progress(message);
+  }
+
+  @Override
+  void deploymentFailed(@NotNull String applicationName, @NotNull String environmentName, @NotNull String versionLabel,
                         @NotNull Boolean hasTimeout, @Nullable ErrorInfo errorInfo) {
     String msg = (!hasTimeout ? "Error, " : "Timeout exceeded, ");
 
@@ -108,8 +113,8 @@ class LoggingDeploymentListener extends AWSClient.Listener {
   }
 
   @Override
-  void deploymentSucceeded(@NotNull String environmentId, @NotNull String applicationName, @NotNull String versionLabel) {
-    String message = String.format("Application %s version %s was deployed successfully to %s", applicationName, versionLabel, environmentId);
+  void deploymentSucceeded(@NotNull String versionLabel) {
+    String message = String.format("Version %s was deployed successfully", versionLabel);
     log(message);
     statusText(message);
     close(UPDATE_ENVIRONMENT);
@@ -135,11 +140,11 @@ class LoggingDeploymentListener extends AWSClient.Listener {
   @NotNull
   private Collection<String> getIdentityFormingParameters() {
     return Arrays.asList(
-        myRunnerParameters.get(ElasticBeanstalkConstants.S3_OBJECT_KEY_PARAM),
-        myRunnerParameters.get(ElasticBeanstalkConstants.S3_BUCKET_NAME_PARAM),
-        myRunnerParameters.get(ElasticBeanstalkConstants.ENV_NAME_PARAM),
-        myRunnerParameters.get(ElasticBeanstalkConstants.APP_NAME_PARAM),
-        myRunnerParameters.get(ElasticBeanstalkConstants.APP_VERSION_PARAM));
+      myRunnerParameters.get(ElasticBeanstalkConstants.S3_OBJECT_KEY_PARAM),
+      myRunnerParameters.get(ElasticBeanstalkConstants.S3_BUCKET_NAME_PARAM),
+      myRunnerParameters.get(ElasticBeanstalkConstants.ENV_NAME_PARAM),
+      myRunnerParameters.get(ElasticBeanstalkConstants.APP_NAME_PARAM),
+      myRunnerParameters.get(ElasticBeanstalkConstants.APP_VERSION_PARAM));
   }
 
   protected void log(@NotNull String message) {
@@ -173,11 +178,11 @@ class LoggingDeploymentListener extends AWSClient.Listener {
   @NotNull
   private String escape(@NotNull String s) {
     return s.
-        replace("|", "||").
-        replace("'", "|'").
-        replace("\n", "|n").
-        replace("\r", "|r").
-        replace("\\uNNNN", "|0xNNNN").
-        replace("[", "|[").replace("]", "|]");
+      replace("|", "||").
+      replace("'", "|'").
+      replace("\n", "|n").
+      replace("\r", "|r").
+      replace("\\uNNNN", "|0xNNNN").
+      replace("[", "|[").replace("]", "|]");
   }
 }

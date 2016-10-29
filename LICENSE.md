@@ -1,3 +1,4 @@
+Copyright 2010-2016 JetBrains s.r.o.
 Copyright 2016 rtfpessoa
 
 Licensed under the Apache License, Version 2.0 (the "License");

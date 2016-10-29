@@ -28,8 +28,8 @@ import java.util.Collections;
 
 public class LoggingDeploymentListenerTest extends LoggingTestCase {
 
-  private static final String FAKE_ID = "ID-123XYZ";
-  private static final String FAKE_APP_NAME = "NAME-FOO";
+  private static final String FAKE_ENV_NAME = "ENV-NAME-FOO";
+  private static final String FAKE_APP_NAME = "APP-NAME-BAR";
   private static final String FAKE_APP_VERSION = "1.0.0-alpha1";
 
   @BeforeMethod(alwaysRun = true)
@@ -53,79 +53,79 @@ public class LoggingDeploymentListenerTest extends LoggingTestCase {
 
     listener.createVersionFinished(FAKE_APP_NAME, FAKE_APP_VERSION, bucketName, key);
 
-    listener.deploymentStarted(FAKE_ID, FAKE_APP_NAME, FAKE_APP_VERSION);
+    listener.deploymentStarted(FAKE_APP_NAME, FAKE_ENV_NAME, FAKE_APP_VERSION);
 
-    listener.deploymentWaitStarted(FAKE_ID);
+    listener.deploymentWaitStarted(FAKE_ENV_NAME);
 
-    listener.deploymentInProgress(FAKE_ID);
+    listener.deploymentInProgress(FAKE_ENV_NAME);
 
-    listener.deploymentSucceeded(FAKE_ID, FAKE_APP_NAME, FAKE_APP_VERSION);
+    listener.deploymentSucceeded(FAKE_APP_VERSION);
 
     assertLog(
-        "OPEN " + LoggingDeploymentListener.CREATE_VERSION,
-        "LOG Creating application " + FAKE_APP_NAME + " version " + FAKE_APP_VERSION + " with bucket " + bucketName + " and key " + key,
-        "LOG Created application " + FAKE_APP_NAME + " version " + FAKE_APP_VERSION + " with bucket " + bucketName + " and key " + key,
-        "CLOSE " + LoggingDeploymentListener.CREATE_VERSION,
-        "OPEN " + LoggingDeploymentListener.UPDATE_ENVIRONMENT,
-        "LOG Started deployment of application " + FAKE_APP_NAME + " version " + FAKE_APP_VERSION + " to " + FAKE_ID,
-        "LOG Waiting for deployment finish",
-        "LOG Waiting for deployment on environment " + FAKE_ID,
-        "PROGRESS Waiting for deployment on environment " + FAKE_ID,
-        "LOG Application " + FAKE_APP_NAME + " version " + FAKE_APP_VERSION + " was deployed successfully to " + FAKE_ID,
-        "STATUS_TEXT Application " + FAKE_APP_NAME + " version " + FAKE_APP_VERSION + " was deployed successfully to " + FAKE_ID,
-        "CLOSE " + LoggingDeploymentListener.UPDATE_ENVIRONMENT);
+      "OPEN " + LoggingDeploymentListener.CREATE_VERSION,
+      "LOG Creating application " + FAKE_APP_NAME + " version " + FAKE_APP_VERSION + " with bucket " + bucketName + " and key " + key,
+      "LOG Created application " + FAKE_APP_NAME + " version " + FAKE_APP_VERSION + " with bucket " + bucketName + " and key " + key,
+      "CLOSE " + LoggingDeploymentListener.CREATE_VERSION,
+      "OPEN " + LoggingDeploymentListener.UPDATE_ENVIRONMENT,
+      "LOG Started deployment of application " + FAKE_APP_NAME + " version " + FAKE_APP_VERSION + " to " + FAKE_ENV_NAME,
+      "LOG Waiting for deployment finish",
+      "LOG Waiting for deployment on environment " + FAKE_ENV_NAME,
+      "PROGRESS Waiting for deployment on environment " + FAKE_ENV_NAME,
+      "LOG Version " + FAKE_APP_VERSION + " was deployed successfully",
+      "STATUS_TEXT Version " + FAKE_APP_VERSION + " was deployed successfully",
+      "CLOSE " + LoggingDeploymentListener.UPDATE_ENVIRONMENT);
   }
 
   @Test
   public void deployment_progress() throws Exception {
-    create().deploymentInProgress(FAKE_ID);
-    assertLog("PROGRESS Waiting for deployment on environment " + FAKE_ID);
+    create().deploymentInProgress(FAKE_ENV_NAME);
+    assertLog("PROGRESS Waiting for deployment on environment " + FAKE_ENV_NAME);
   }
 
   @Test
   public void deployment_succeeded() throws Exception {
-    create().deploymentSucceeded(FAKE_ID, FAKE_APP_NAME, FAKE_APP_VERSION);
+    create().deploymentSucceeded(FAKE_APP_VERSION);
     assertLog(
-        "LOG Application " + FAKE_APP_NAME + " version " + FAKE_APP_VERSION + " was deployed successfully to " + FAKE_ID,
-        "STATUS_TEXT Application " + FAKE_APP_NAME + " version " + FAKE_APP_VERSION + " was deployed successfully to " + FAKE_ID,
-        "CLOSE " + LoggingDeploymentListener.UPDATE_ENVIRONMENT);
+      "LOG Version " + FAKE_APP_VERSION + " was deployed successfully",
+      "STATUS_TEXT Version " + FAKE_APP_VERSION + " was deployed successfully",
+      "CLOSE " + LoggingDeploymentListener.UPDATE_ENVIRONMENT);
   }
 
   @Test
   public void deployment_failed_timeout() throws Exception {
-    create().deploymentFailed(FAKE_ID, FAKE_APP_NAME, FAKE_APP_VERSION, true, null);
+    create().deploymentFailed(FAKE_APP_NAME, FAKE_ENV_NAME, FAKE_APP_VERSION, true, null);
     assertLog(
-        "PROBLEM identity: 3569038 type: ELASTICBEANSTALK_TIMEOUT descr: Timeout exceeded, ",
-        "CLOSE update environment");
+      "PROBLEM identity: 3569038 type: ELASTICBEANSTALK_TIMEOUT descr: Timeout exceeded, ",
+      "CLOSE " + LoggingDeploymentListener.UPDATE_ENVIRONMENT);
   }
 
   @Test
   public void deployment_failed() throws Exception {
-    create().deploymentFailed(FAKE_ID, FAKE_APP_NAME, FAKE_APP_VERSION, false, createError("abc", "Some error message"));
+    create().deploymentFailed(FAKE_APP_NAME, FAKE_ENV_NAME, FAKE_APP_VERSION, false, createError("abc", "Some error message"));
     assertLog(
-        "ERR Associated error: Some error message",
-        "ERR Error severity: abc",
-        "PROBLEM identity: 79914740 type: ELASTICBEANSTALK_FAILURE descr: Error, : Some error message",
-        "CLOSE update environment");
+      "ERR Associated error: Some error message",
+      "ERR Error severity: abc",
+      "PROBLEM identity: 79914740 type: ELASTICBEANSTALK_FAILURE descr: Error, : Some error message",
+      "CLOSE " + LoggingDeploymentListener.UPDATE_ENVIRONMENT);
   }
 
   @Test
   public void deployment_exception_type() throws Exception {
     create().exception(new AWSException("Some exception message", null, AWSException.EXCEPTION_BUILD_PROBLEM_TYPE, null));
     assertLog(
-        "ERR Some exception message",
-        "PROBLEM identity: 2086901196 type: ELASTICBEANSTALK_EXCEPTION descr: Some exception message",
-        "CLOSE update environment");
+      "ERR Some exception message",
+      "PROBLEM identity: 2086901196 type: ELASTICBEANSTALK_EXCEPTION descr: Some exception message",
+      "CLOSE " + LoggingDeploymentListener.UPDATE_ENVIRONMENT);
   }
 
   @Test
   public void deployment_exception_description_type() throws Exception {
     create().exception(new AWSException("Some exception message", null, AWSException.CLIENT_PROBLEM_TYPE, "Some exception details"));
     assertLog(
-        "ERR Some exception message",
-        "ERR Some exception details",
-        "PROBLEM identity: 2086901196 type: ELASTICBEANSTALK_CLIENT descr: Some exception message",
-        "CLOSE update environment");
+      "ERR Some exception message",
+      "ERR Some exception details",
+      "PROBLEM identity: 2086901196 type: ELASTICBEANSTALK_CLIENT descr: Some exception message",
+      "CLOSE " + LoggingDeploymentListener.UPDATE_ENVIRONMENT);
   }
 
   @Override
@@ -144,8 +144,8 @@ public class LoggingDeploymentListenerTest extends LoggingTestCase {
   @NotNull
   private LoggingDeploymentListener create() {
     return new LoggingDeploymentListener(Collections.<String, String>emptyMap(),
-        new NullBuildProgressLogger(),
-        "fake_checkout_dir") {
+      new NullBuildProgressLogger(),
+      "fake_checkout_dir") {
       @Override
       protected void log(@NotNull String message) {
         logMessage("LOG " + message);

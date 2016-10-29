@@ -46,7 +46,7 @@ public class ElasticBeanstalkRunner implements AgentBuildRunner {
         m.s3ObjectVersion = nullIfEmpty(configParameters.get(S3_OBJECT_VERSION_CONFIG_PARAM));
 
         final AWSClient awsClient = createAWSClient(runnerParameters, runningBuild).withListener(
-            new LoggingDeploymentListener(runnerParameters, runningBuild.getBuildLogger(), runningBuild.getCheckoutDirectory().getAbsolutePath()));
+          new LoggingDeploymentListener(runnerParameters, runningBuild.getBuildLogger(), runningBuild.getCheckoutDirectory().getAbsolutePath()));
 
         final String s3BucketName = runnerParameters.get(S3_BUCKET_NAME_PARAM);
         String s3ObjectKey = runnerParameters.get(S3_OBJECT_KEY_PARAM);
@@ -62,8 +62,8 @@ public class ElasticBeanstalkRunner implements AgentBuildRunner {
         if (!m.problemOccurred && !isInterrupted()) {
           if (ElasticBeanstalkUtil.isDeploymentWaitEnabled(runnerParameters)) {
             awsClient.updateEnvironmentAndWait(environmentName, versionLabel,
-                Integer.parseInt(runnerParameters.get(WAIT_TIMEOUT_SEC_PARAM)),
-                getIntegerOrDefault(configParameters.get(WAIT_POLL_INTERVAL_SEC_CONFIG_PARAM), WAIT_POLL_INTERVAL_SEC_DEFAULT));
+              Integer.parseInt(runnerParameters.get(WAIT_TIMEOUT_SEC_PARAM)),
+              getIntegerOrDefault(configParameters.get(WAIT_POLL_INTERVAL_SEC_CONFIG_PARAM), WAIT_POLL_INTERVAL_SEC_DEFAULT));
           } else {
             awsClient.updateEnvironment(environmentName, versionLabel);
           }
@@ -101,30 +101,29 @@ public class ElasticBeanstalkRunner implements AgentBuildRunner {
 
   @NotNull
   private AWSClient createAWSClient(final Map<String, String> runnerParameters, @NotNull final AgentRunningBuild runningBuild) {
-    final Map<String, String> params = new HashMap<String, String>(runnerParameters);
+    final Map<String, String> params = new HashMap<>(runnerParameters);
     params.put(TEMP_CREDENTIALS_SESSION_NAME_PARAM, runningBuild.getBuildTypeExternalId() + runningBuild.getBuildId());
     if (ElasticBeanstalkUtil.isDeploymentWaitEnabled(runnerParameters)) {
       params.put(TEMP_CREDENTIALS_DURATION_SEC_PARAM, String.valueOf(2 * Integer.parseInt(runnerParameters.get(WAIT_TIMEOUT_SEC_PARAM))));
     }
 
-    return new AWSClient(createAWSClients(params, true)).withDescription("TeamCity build \"" + runningBuild.getBuildTypeName() + "\" #" + runningBuild.getBuildNumber());
+    return new AWSClient(createAWSClients(params, true));
   }
 
-  static class ElasticBeanstalkRunnerException extends RunBuildException {
-    public ElasticBeanstalkRunnerException(@NotNull String message, @Nullable Throwable cause) {
+  private static class ElasticBeanstalkRunnerException extends RunBuildException {
+    ElasticBeanstalkRunnerException(@NotNull String message, @Nullable Throwable cause) {
       super(message, cause, ErrorData.BUILD_RUNNER_ERROR_TYPE);
       this.setLogStacktrace(false);
     }
   }
 
   private class Mutable {
-    public Mutable(@NotNull Map<String, String> configParameters) {
+    Mutable(@NotNull Map<String, String> configParameters) {
       problemOccurred = false;
       s3ObjectVersion = nullIfEmpty(configParameters.get(S3_OBJECT_VERSION_CONFIG_PARAM));
     }
 
     boolean problemOccurred;
     String s3ObjectVersion;
-    String s3ObjectETag;
   }
 }

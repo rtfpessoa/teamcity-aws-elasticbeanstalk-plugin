@@ -14,7 +14,7 @@
 
 * Use `git rebase` (not `git merge`) to sync your work from time to time with the master branch.
 
-* After creating your pull request make sure the build is passing in [Travis](https://travis-ci.org/rtfpessoa/teamcity-aws-elasticbeanstalk-plugin).
+* After creating your pull request make sure the build is passing in [CircleCI](https://circleci.com/gh/rtfpessoa/teamcity-aws-elasticbeanstalk-plugin).
 
 ### Commit Style
 
