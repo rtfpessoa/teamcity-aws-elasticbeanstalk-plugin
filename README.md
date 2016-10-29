@@ -1,7 +1,7 @@
 # Teamcity AWS Elastic Beanstalk Plugin (teamcity-aws-elasticbeanstalk-plugin)
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a88f10539dbd47b588cf444b57346d5b)](https://www.codacy.com/app/Codacy/teamcity-aws-elasticbeanstalk-plugin?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rtfpessoa/teamcity-aws-elasticbeanstalk-plugin&amp;utm_campaign=Badge_Grade)
-[![Travis](https://travis-ci.org/rtfpessoa/teamcity-aws-elasticbeanstalk-plugin.svg?branch=master)](https://travis-ci.org/rtfpessoa/teamcity-aws-elasticbeanstalk-plugin)
+[![CircleCI](https://circleci.com/gh/rtfpessoa/teamcity-aws-elasticbeanstalk-plugin.svg?style=svg)](https://circleci.com/gh/rtfpessoa/teamcity-aws-elasticbeanstalk-plugin)
 [![Dependency Status](https://dependencyci.com/github/rtfpessoa/teamcity-aws-elasticbeanstalk-plugin/badge)](https://dependencyci.com/github/rtfpessoa/teamcity-aws-elasticbeanstalk-plugin)
 
 teamcity-aws-elasticbeanstalk-plugin is a **VERY EARLY STAGE** Teamcity plugin that allows deployments

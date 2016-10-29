@@ -1,0 +1,18 @@
+machine:
+  java:
+    version: oraclejdk8
+dependencies:
+  override:
+    - ./gradlew assemble
+test:
+  override:
+    - ./gradlew check
+deployment:
+  staging:
+    branch: /.*/
+    commands:
+      - ./gradlew build:build
+general:
+  artifacts:
+    - "build/build/distributions/aws-elasticbeanstalk-plugin-agent.zip"
+    - "build/build/distributions/aws-elasticbeanstalk-plugin.zip"
