@@ -23,9 +23,7 @@ import com.amazonaws.auth.AWSSessionCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.BasicSessionCredentials;
 import com.amazonaws.regions.Region;
-import com.amazonaws.services.codedeploy.AmazonCodeDeployClient;
-import com.amazonaws.services.codepipeline.AWSCodePipelineClient;
-import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.elasticbeanstalk.AWSElasticBeanstalkClient;
 import com.amazonaws.services.securitytoken.AWSSecurityTokenServiceClient;
 import com.amazonaws.services.securitytoken.model.AssumeRoleRequest;
 import com.amazonaws.services.securitytoken.model.Credentials;
@@ -34,14 +32,14 @@ import jetbrains.buildServer.version.ServerVersionHolder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * @author vbedrosova
- */
 public class AWSClients {
 
-  @Nullable private final AWSCredentials myCredentials;
-  @NotNull private final Region myRegion;
-  @NotNull private final ClientConfiguration myClientConfiguration;
+  @Nullable
+  private final AWSCredentials myCredentials;
+  @NotNull
+  private final Region myRegion;
+  @NotNull
+  private final ClientConfiguration myClientConfiguration;
 
   private AWSClients(@Nullable AWSCredentials credentials, @NotNull String region) {
     myCredentials = credentials;
@@ -58,29 +56,15 @@ public class AWSClients {
   public static AWSClients fromDefaultCredentialProviderChain(@NotNull String region) {
     return new AWSClients(null, region);
   }
+
   @NotNull
   public static AWSClients fromBasicCredentials(@NotNull String accessKeyId, @NotNull String secretAccessKey, @NotNull String region) {
     return fromExistingCredentials(new BasicAWSCredentials(accessKeyId, secretAccessKey), region);
   }
 
   @NotNull
-  public static AWSClients fromBasicSessionCredentials(@NotNull String accessKeyId, @NotNull String secretAccessKey, @NotNull String sessionToken, @NotNull String region) {
-    return fromExistingCredentials(new BasicSessionCredentials(accessKeyId, secretAccessKey, sessionToken), region);
-  }
-
-  @NotNull
-  public AmazonS3Client createS3Client() {
-    return withRegion(myCredentials == null ? new AmazonS3Client(myClientConfiguration) : new AmazonS3Client(myCredentials, myClientConfiguration));
-  }
-
-  @NotNull
-  public AmazonCodeDeployClient createCodeDeployClient() {
-    return withRegion(myCredentials == null ? new AmazonCodeDeployClient(myClientConfiguration) : new AmazonCodeDeployClient(myCredentials, myClientConfiguration));
-  }
-
-  @NotNull
-  public AWSCodePipelineClient createCodePipeLineClient() {
-    return withRegion(myCredentials == null ? new AWSCodePipelineClient(myClientConfiguration) : new AWSCodePipelineClient(myCredentials, myClientConfiguration));
+  public AWSElasticBeanstalkClient createElasticBeanstalkClient() {
+    return withRegion(myCredentials == null ? new AWSElasticBeanstalkClient(myClientConfiguration) : new AWSElasticBeanstalkClient(myCredentials, myClientConfiguration));
   }
 
   @NotNull

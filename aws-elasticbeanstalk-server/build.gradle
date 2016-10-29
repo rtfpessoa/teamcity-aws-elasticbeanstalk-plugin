@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-rootProject.name = 'aws-elasticbeanstalk-plugin'
+apply plugin: 'com.github.rodm.teamcity-server'
 
-include 'aws-elasticbeanstalk-common'
-include 'aws-elasticbeanstalk-agent'
-include 'aws-elasticbeanstalk-server'
-include 'build'
-include 'amazon-util'
+dependencies {
+    compile project(':aws-elasticbeanstalk-common')
+}
+
+teamcity {
+    version = teamcityVersion
+}

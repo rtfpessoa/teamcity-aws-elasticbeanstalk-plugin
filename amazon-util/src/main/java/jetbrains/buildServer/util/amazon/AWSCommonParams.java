@@ -29,41 +29,38 @@ import java.util.*;
 
 import static jetbrains.buildServer.util.amazon.AWSClients.*;
 
-/**
- * @author vbedrosova
- */
 public final class AWSCommonParams {
 
-  // "codedeploy_" prefix is for backward compatibility
+  // "elasticbeanstalk_" prefix is for backward compatibility
 
-  public static final String REGION_NAME_PARAM = "codedeploy_region_name";
+  public static final String REGION_NAME_PARAM = "elasticbeanstalk_region_name";
   public static final String REGION_NAME_LABEL = "AWS region";
 
-  public static final String CREDENTIALS_TYPE_PARAM = "codedeploy_credentials_type";
+  public static final String CREDENTIALS_TYPE_PARAM = "elasticbeanstalk_credentials_type";
   public static final String CREDENTIALS_TYPE_LABEL = "Credentials type";
-  public static final String TEMP_CREDENTIALS_OPTION = "codedeploy_temp_credentials";
+  public static final String TEMP_CREDENTIALS_OPTION = "elasticbeanstalk_temp_credentials";
   public static final String TEMP_CREDENTIALS_LABEL = "Temporary credentials";
-  public static final String ACCESS_KEYS_OPTION = "codedeploy_access_keys";
+  public static final String ACCESS_KEYS_OPTION = "elasticbeanstalk_access_keys";
   public static final String ACCESS_KEYS_LABEL = "Access keys";
 
   public static final String USE_DEFAULT_CREDENTIAL_PROVIDER_CHAIN_PARAM = "use_default_credential_provider_chain";
   public static final String USE_DEFAULT_CREDENTIAL_PROVIDER_CHAIN_LABEL = "Use default credential provider chain";
 
-  public static final String ACCESS_KEY_ID_PARAM = "codedeploy_access_key_id";
+  public static final String ACCESS_KEY_ID_PARAM = "elasticbeanstalk_access_key_id";
   public static final String ACCESS_KEY_ID_LABEL = "Access key ID";
-  public static final String SECURE_SECRET_ACCESS_KEY_PARAM = "secure:codedeploy_secret_access_key";
-  public static final String SECRET_ACCESS_KEY_PARAM = "codedeploy_secret_access_key";
+  public static final String SECURE_SECRET_ACCESS_KEY_PARAM = "secure:elasticbeanstalk_secret_access_key";
+  public static final String SECRET_ACCESS_KEY_PARAM = "elasticbeanstalk_secret_access_key";
   public static final String SECRET_ACCESS_KEY_LABEL = "Secret access key";
 
-  public static final String IAM_ROLE_ARN_PARAM = "codedeploy_iam_role_arn";
+  public static final String IAM_ROLE_ARN_PARAM = "elasticbeanstalk_iam_role_arn";
   public static final String IAM_ROLE_ARN_LABEL = "IAM role ARN";
-  public static final String EXTERNAL_ID_PARAM = "codedeploy_external_id";
+  public static final String EXTERNAL_ID_PARAM = "elasticbeanstalk_external_id";
   public static final String EXTERNAL_ID_LABEL = "External ID";
 
   public static final Map<String, String> DEFAULTS = Collections.unmodifiableMap(CollectionsUtil.asMap(
-    CREDENTIALS_TYPE_PARAM, ACCESS_KEYS_OPTION,
-    EXTERNAL_ID_PARAM, UUID.randomUUID().toString(),
-    USE_DEFAULT_CREDENTIAL_PROVIDER_CHAIN_PARAM, "false"
+      CREDENTIALS_TYPE_PARAM, ACCESS_KEYS_OPTION,
+      EXTERNAL_ID_PARAM, UUID.randomUUID().toString(),
+      USE_DEFAULT_CREDENTIAL_PROVIDER_CHAIN_PARAM, "false"
   ));
 
   public static final String TEMP_CREDENTIALS_SESSION_NAME_PARAM = "temp_credentials_session_name";
@@ -155,33 +152,33 @@ public final class AWSCommonParams {
     final boolean useDefaultCredProvChain = Boolean.parseBoolean(params.get(USE_DEFAULT_CREDENTIAL_PROVIDER_CHAIN_PARAM));
 
     final AWSClients awsClients =
-      useDefaultCredProvChain ?
-        fromDefaultCredentialProviderChain(regionName) :
-        fromBasicCredentials(params.get(ACCESS_KEY_ID_PARAM), getSecretAccessKey(params), regionName);
+        useDefaultCredProvChain ?
+            fromDefaultCredentialProviderChain(regionName) :
+            fromBasicCredentials(params.get(ACCESS_KEY_ID_PARAM), getSecretAccessKey(params), regionName);
 
     return
-      TEMP_CREDENTIALS_OPTION.equals(params.get(CREDENTIALS_TYPE_PARAM)) ? createTempAWSClients(awsClients, params, lazy) : awsClients;
+        TEMP_CREDENTIALS_OPTION.equals(params.get(CREDENTIALS_TYPE_PARAM)) ? createTempAWSClients(awsClients, params, lazy) : awsClients;
   }
 
   @NotNull
   private static AWSClients createTempAWSClients(@NotNull final AWSClients clients, @NotNull final Map<String, String> params, boolean lazy) {
     return fromExistingCredentials(
-      lazy ? new LazyCredentials() {
-        @NotNull
-        @Override
-        protected AWSSessionCredentials createCredentials() {
-          return createSessionCredentials(clients, params);
-        }
-      } : createSessionCredentials(clients, params),
-      clients.getRegion());
+        lazy ? new LazyCredentials() {
+          @NotNull
+          @Override
+          protected AWSSessionCredentials createCredentials() {
+            return createSessionCredentials(clients, params);
+          }
+        } : createSessionCredentials(clients, params),
+        clients.getRegion());
   }
 
   @NotNull
   private static AWSSessionCredentials createSessionCredentials(@NotNull final AWSClients clients, @NotNull Map<String, String> params) {
     return clients.createSessionCredentials(
-      params.get(IAM_ROLE_ARN_PARAM), params.get(EXTERNAL_ID_PARAM),
-      patchSessionName(getStringOrDefault(params.get(TEMP_CREDENTIALS_SESSION_NAME_PARAM), TEMP_CREDENTIALS_SESSION_NAME_DEFAULT_PREFIX + new Date().getTime())),
-      getIntegerOrDefault(params.get(TEMP_CREDENTIALS_DURATION_SEC_PARAM), TEMP_CREDENTIALS_DURATION_SEC_DEFAULT));
+        params.get(IAM_ROLE_ARN_PARAM), params.get(EXTERNAL_ID_PARAM),
+        patchSessionName(getStringOrDefault(params.get(TEMP_CREDENTIALS_SESSION_NAME_PARAM), TEMP_CREDENTIALS_SESSION_NAME_DEFAULT_PREFIX + new Date().getTime())),
+        getIntegerOrDefault(params.get(TEMP_CREDENTIALS_DURATION_SEC_PARAM), TEMP_CREDENTIALS_DURATION_SEC_DEFAULT));
   }
 
   @NotNull
