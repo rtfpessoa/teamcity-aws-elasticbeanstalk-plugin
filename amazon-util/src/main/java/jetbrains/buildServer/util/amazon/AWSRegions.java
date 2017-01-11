@@ -30,6 +30,7 @@ public final class AWSRegions {
   static {
     REGION_NAMES_FOR_WEB = new LinkedHashMap<String, String>();
     REGION_NAMES_FOR_WEB.put("us-east-1", "US East (N. Virginia)");
+    REGION_NAMES_FOR_WEB.put("us-east-2", "US East (Ohio)");
     REGION_NAMES_FOR_WEB.put("us-west-1", "US West (N. California)");
     REGION_NAMES_FOR_WEB.put("us-west-2", "US West (Oregon)");
     REGION_NAMES_FOR_WEB.put("eu-west-1", "EU West (Dublin)");
