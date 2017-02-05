@@ -114,7 +114,7 @@ final class ParametersValidator {
 
   private static void validateS3Key(@NotNull Map<String, String> invalids, @NotNull String param, @NotNull String key, @NotNull String name, boolean runtime) {
     if (!isReference(param, runtime)) {
-      if (!param.matches("[a-zA-Z_0-9!\\-\\.*'()/]*")) {
+      if (!param.matches("[a-zA-Z_0-9!\\-\\.*'()/,:-]*")) {
         invalids.put(key, name + " must contain only safe characters");
       }
     }
