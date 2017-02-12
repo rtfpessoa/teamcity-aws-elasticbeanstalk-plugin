@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/amazon-util/amazon-util.iml" filepath="$PROJECT_DIR$/.idea/modules/amazon-util/amazon-util.iml" group="amazon-util" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/amazon-util/amazon-util_main.iml" filepath="$PROJECT_DIR$/.idea/modules/amazon-util/amazon-util_main.iml" group="amazon-util" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/amazon-util/amazon-util_test.iml" filepath="$PROJECT_DIR$/.idea/modules/amazon-util/amazon-util_test.iml" group="amazon-util" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/aws-elasticbeanstalk-agent/aws-elasticbeanstalk-agent.iml" filepath="$PROJECT_DIR$/.idea/modules/aws-elasticbeanstalk-agent/aws-elasticbeanstalk-agent.iml" group="aws-elasticbeanstalk-agent" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/aws-elasticbeanstalk-agent/aws-elasticbeanstalk-agent_main.iml" filepath="$PROJECT_DIR$/.idea/modules/aws-elasticbeanstalk-agent/aws-elasticbeanstalk-agent_main.iml" group="aws-elasticbeanstalk-agent" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/aws-elasticbeanstalk-agent/aws-elasticbeanstalk-agent_test.iml" filepath="$PROJECT_DIR$/.idea/modules/aws-elasticbeanstalk-agent/aws-elasticbeanstalk-agent_test.iml" group="aws-elasticbeanstalk-agent" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/aws-elasticbeanstalk-common/aws-elasticbeanstalk-common.iml" filepath="$PROJECT_DIR$/.idea/modules/aws-elasticbeanstalk-common/aws-elasticbeanstalk-common.iml" group="aws-elasticbeanstalk-common" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/aws-elasticbeanstalk-common/aws-elasticbeanstalk-common_main.iml" filepath="$PROJECT_DIR$/.idea/modules/aws-elasticbeanstalk-common/aws-elasticbeanstalk-common_main.iml" group="aws-elasticbeanstalk-common" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/aws-elasticbeanstalk-common/aws-elasticbeanstalk-common_test.iml" filepath="$PROJECT_DIR$/.idea/modules/aws-elasticbeanstalk-common/aws-elasticbeanstalk-common_test.iml" group="aws-elasticbeanstalk-common" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/aws-elasticbeanstalk-plugin.iml" filepath="$PROJECT_DIR$/.idea/modules/aws-elasticbeanstalk-plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/aws-elasticbeanstalk-server/aws-elasticbeanstalk-server.iml" filepath="$PROJECT_DIR$/.idea/modules/aws-elasticbeanstalk-server/aws-elasticbeanstalk-server.iml" group="aws-elasticbeanstalk-server" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/aws-elasticbeanstalk-server/aws-elasticbeanstalk-server_main.iml" filepath="$PROJECT_DIR$/.idea/modules/aws-elasticbeanstalk-server/aws-elasticbeanstalk-server_main.iml" group="aws-elasticbeanstalk-server" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/aws-elasticbeanstalk-server/aws-elasticbeanstalk-server_test.iml" filepath="$PROJECT_DIR$/.idea/modules/aws-elasticbeanstalk-server/aws-elasticbeanstalk-server_test.iml" group="aws-elasticbeanstalk-server" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/build/build.iml" filepath="$PROJECT_DIR$/.idea/modules/build/build.iml" group="build" />
+    </modules>
+  </component>
+</project>

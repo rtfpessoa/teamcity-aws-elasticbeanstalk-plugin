@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":aws-elasticbeanstalk-common:main" external.linked.project.path="$MODULE_DIR$/../../../aws-elasticbeanstalk-common" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="jetbrains.buildServer.elasticbeanstalk" external.system.module.type="sourceSet" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/../../../aws-elasticbeanstalk-common/build/classes/main" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../aws-elasticbeanstalk-common/src/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../../aws-elasticbeanstalk-common/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../aws-elasticbeanstalk-common/src/main/resources" type="java-resource" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../teamcity/app/buildAgent/lib/common-impl.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module" module-name="amazon-util_main" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.teamcity.internal:server:10.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-support:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-simpledb:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-simpleworkflow:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-storagegateway:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-route53:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-s3:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-importexport:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-sts:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-sqs:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-rds:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-redshift:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-elasticbeanstalk:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-glacier:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-iam:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-datapipeline:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-elasticloadbalancing:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-emr:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-elasticache:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-elastictranscoder:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-ec2:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-dynamodb:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-sns:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-cloudtrail:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-cloudwatch:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-logs:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-events:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-cognitoidentity:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-cognitosync:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-directconnect:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-cloudformation:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-cloudfront:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-kinesis:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-opsworks:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-ses:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-autoscaling:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-cloudsearch:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-cloudwatchmetrics:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-swf-libraries:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-codedeploy:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-codepipeline:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-kms:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-config:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-lambda:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-ecs:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-ecr:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-cloudhsm:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-ssm:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-workspaces:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-machinelearning:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-directory:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-efs:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-codecommit:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-devicefarm:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-elasticsearch:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-waf:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-marketplacecommerceanalytics:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-inspector:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-iot:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-api-gateway:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-acm:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-gamelift:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-dms:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-marketplacemeteringservice:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-cognitoidp:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-discovery:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-applicationautoscaling:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.amazonaws:aws-java-sdk-core:1.11.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:1.3.9" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:guava:13.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.freemarker:freemarker:2.3.19" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.teamcity:server-api:10.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.5" level="project" />
+    <orderEntry type="library" name="Gradle: org.slf4j:slf4j-log4j12:1.7.5" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.security:spring-security-aspects:4.1.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.security:spring-security-config:4.1.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.security:spring-security-core:4.1.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.security:spring-security-remoting:4.1.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpclient:4.5.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.6.6" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.6.6" level="project" />
+    <orderEntry type="library" name="Gradle: joda-time:joda-time:2.8.1" level="project" />
+    <orderEntry type="library" name="Gradle: javax.servlet:jstl:1.1.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.tomcat:el-api:6.0.16" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.tomcat:tomcat-annotations-api:7.0.68" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.tomcat:tomcat-jsp-api:7.0.68" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.tomcat:tomcat-servlet-api:7.0.68" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-aop:4.2.6.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-aspects:4.2.6.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-beans:4.2.6.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-context:4.2.6.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-context-support:4.2.6.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-core:4.2.6.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-expression:4.2.6.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-instrument:4.2.6.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-jdbc:4.2.6.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-tx:4.2.6.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-web:4.2.6.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-webmvc:4.2.6.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: taglibs:standard:1.1.2" level="project" />
+    <orderEntry type="library" name="Gradle: log4j:log4j:1.2.17" level="project" />
+    <orderEntry type="library" name="Gradle: aopalliance:aopalliance:1.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpcore:4.4.4" level="project" />
+    <orderEntry type="library" name="Gradle: commons-codec:commons-codec:1.9" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.6.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.6.6" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.tomcat:tomcat-el-api:7.0.68" level="project" />
+    <orderEntry type="library" name="Gradle: org.aspectj:aspectjweaver:1.8.9" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.teamcity:common-api:10.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: commons-httpclient:commons-httpclient:3.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.ws.xmlrpc:xmlrpc:2.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.teamcity:serviceMessages:10.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.teamcity.idea:obsolete-openapi:10.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: commons-io:commons-io:1.3.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.commons:commons-compress:1.9" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.teamcity.xstream:xstream:1.4.8" level="project" />
+    <orderEntry type="library" name="Gradle: org.tukaani:xz:1.5" level="project" />
+    <orderEntry type="library" name="Gradle: xerces:xercesImpl:2.9.1" level="project" />
+    <orderEntry type="library" name="Gradle: xpp3:xpp3:1.1.4c" level="project" />
+    <orderEntry type="library" name="Gradle: javax.servlet:servlet-api:2.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.teamcity.idea:annotations:132.719" level="project" />
+    <orderEntry type="library" name="Gradle: jaxen:jaxen:1.1.1" level="project" />
+    <orderEntry type="library" name="Gradle: net.sf.trove4j:trove4j:3.0.3" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.teamcity.idea:trove4j:95.677" level="project" />
+    <orderEntry type="library" name="Gradle: dom4j:dom4j:1.6.1" level="project" />
+    <orderEntry type="library" name="Gradle: jdom:jdom:1.0" level="project" />
+    <orderEntry type="library" name="Gradle: xom:xom:1.0" level="project" />
+    <orderEntry type="library" name="Gradle: xerces:xmlParserAPIs:2.6.2" level="project" />
+    <orderEntry type="library" name="Gradle: xalan:xalan:2.6.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.ibm.icu:icu4j:2.6.1" level="project" />
+    <orderEntry type="library" name="Gradle: commons-logging:commons-logging:1.2" level="project" />
+    <orderEntry type="library" name="Gradle: xml-apis:xml-apis:2.0.2" level="project" />
+  </component>
+</module>
