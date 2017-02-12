@@ -53,18 +53,25 @@ public class AWSClient {
    * <p>
    * For performing this operation target AWSClient must have corresponding S3 permissions.
    *
-   * @param s3BucketName valid S3 bucket name
-   * @param s3ObjectKey  valid S3 object key
+   * @param skipDuplicateVersions if the application version already exists, do we error out?
+   * @param s3BucketName          valid S3 bucket name
+   * @param s3ObjectKey           valid S3 object key
    */
-  void createApplicationVersion(@NotNull String applicationName, @NotNull String versionLabel,
+  void createApplicationVersion(@NotNull String applicationName, @NotNull String versionLabel, @NotNull Boolean skipDuplicateVersions,
                                 @NotNull String s3BucketName, @NotNull String s3ObjectKey) {
     try {
       myListener.createVersionStarted(applicationName, versionLabel, s3BucketName, s3ObjectKey);
       S3Location location = new S3Location().withS3Bucket(s3BucketName).withS3Key(s3ObjectKey);
       CreateApplicationVersionRequest request = new CreateApplicationVersionRequest(applicationName, versionLabel)
         .withSourceBundle(location);
-      myElasticBeanstalkClient.createApplicationVersion(request);
-      myListener.createVersionFinished(applicationName, versionLabel, s3BucketName, s3ObjectKey);
+
+      if (skipDuplicateVersions && doesApplicationVersionExist(applicationName, versionLabel)) {
+        myListener.createVersionSkipped(applicationName, versionLabel);
+      } else {
+        myElasticBeanstalkClient.createApplicationVersion(request);
+        myListener.createVersionFinished(applicationName, versionLabel, s3BucketName, s3ObjectKey);
+      }
+
     } catch (Throwable t) {
       processFailure(t);
     }
@@ -233,6 +240,20 @@ public class AWSClient {
     return (msg != null && msg.endsWith(".")) ? msg.substring(0, msg.length() - 1) : msg;
   }
 
+  private boolean doesApplicationVersionExist(@NotNull String applicationName, @NotNull String versionLabel) {
+    DescribeApplicationVersionsRequest request =
+      new DescribeApplicationVersionsRequest()
+        .withApplicationName(applicationName)
+        .withVersionLabels(versionLabel);
+
+    DescribeApplicationVersionsResult describeApplicationVersionsResult
+      = myElasticBeanstalkClient.describeApplicationVersions(request);
+
+    List<ApplicationVersionDescription> applicationVersions = describeApplicationVersionsResult.getApplicationVersions();
+
+    return applicationVersions != null && applicationVersions.size() > 0;
+  }
+
   static class Listener {
     void createVersionStarted(@NotNull String applicationName, @NotNull String versionLabel,
                               @NotNull String s3BucketName, @NotNull String s3ObjectKey) {
@@ -240,6 +261,10 @@ public class AWSClient {
 
     void createVersionFinished(@NotNull String applicationName, @NotNull String versionLabel,
                                @NotNull String s3BucketName, @NotNull String s3ObjectKey) {
+    }
+
+    void createVersionSkipped(@NotNull String applicationName, @NotNull String versionLabel) {
+
     }
 
     void deploymentStarted(@NotNull String environmentId, @NotNull String environmentName, @NotNull String versionLabel) {

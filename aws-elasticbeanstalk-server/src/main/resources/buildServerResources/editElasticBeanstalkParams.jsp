@@ -69,6 +69,10 @@
     </td>
 </tr>
 <tr>
+    <th><label for="${app_version_skip_dupe_param}">${app_version_skip_dupe_label}: </label></th>
+    <td><props:checkboxProperty name="${app_version_skip_dupe_param}" uncheckedValue="false" /></td>
+</tr>
+<tr>
     <th><label for="${wait_flag_param}">${wait_flag_label}: </label></th>
     <td><props:checkboxProperty name="${wait_flag_param}" uncheckedValue="false" onclick="elasticBeanstalkWaitFlag()"/></td>
 </tr>

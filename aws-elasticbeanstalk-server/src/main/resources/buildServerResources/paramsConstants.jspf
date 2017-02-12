@@ -36,6 +36,9 @@
 <c:set var="app_version_param" value="<%=ElasticBeanstalkConstants.APP_VERSION_PARAM%>"/>
 <c:set var="app_version_label" value="<%=ElasticBeanstalkConstants.APP_VERSION_LABEL%>"/>
 
+<c:set var="app_version_skip_dupe_param" value="<%=ElasticBeanstalkConstants.APP_VERSION_SKIP_DUPE_PARAM%>"/>
+<c:set var="app_version_skip_dupe_label" value="<%=ElasticBeanstalkConstants.APP_VERSION_SKIP_DUPE_LABEL%>"/>
+
 <c:set var="wait_flag_param" value="<%=ElasticBeanstalkConstants.WAIT_FLAG_PARAM%>"/>
 <c:set var="wait_flag_label" value="<%=ElasticBeanstalkConstants.WAIT_FLAG_LABEL%>"/>
 
