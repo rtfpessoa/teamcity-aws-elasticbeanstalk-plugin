@@ -58,6 +58,12 @@ class LoggingDeploymentListener extends AWSClient.Listener {
   }
 
   @Override
+  void createVersionSkipped(@NotNull String applicationName, @NotNull String versionLabel) {
+    log(String.format("Application %s version %s already exists, skipping upload...", applicationName, versionLabel));
+    close(CREATE_VERSION);
+  }
+
+  @Override
   void createVersionFinished(@NotNull String applicationName, @NotNull String versionLabel,
                              @NotNull String s3BucketName, @NotNull String s3ObjectKey) {
     log(String.format("Created application %s version %s with bucket %s and key %s", applicationName, versionLabel, s3BucketName, s3ObjectKey));
@@ -144,6 +150,7 @@ class LoggingDeploymentListener extends AWSClient.Listener {
       myRunnerParameters.get(ElasticBeanstalkConstants.S3_BUCKET_NAME_PARAM),
       myRunnerParameters.get(ElasticBeanstalkConstants.ENV_NAME_PARAM),
       myRunnerParameters.get(ElasticBeanstalkConstants.APP_NAME_PARAM),
+      myRunnerParameters.get(ElasticBeanstalkConstants.APP_VERSION_SKIP_DUPE_PARAM),
       myRunnerParameters.get(ElasticBeanstalkConstants.APP_VERSION_PARAM));
   }
 

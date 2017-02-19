@@ -47,10 +47,15 @@ public interface ElasticBeanstalkConstants {
   String APP_VERSION_PARAM = "elasticbeanstalk_version_label";
   String APP_VERSION_LABEL = "Application Version";
 
+  String APP_VERSION_SKIP_DUPE_PARAM = "elasticbeanstalk_version_skip_dupe_label";
+  String APP_VERSION_SKIP_DUPE_LABEL = "Skip Upload If Application Version Already Exists?";
+
   String WAIT_FLAG_PARAM = "elasticbeanstalk_wait";
   String WAIT_FLAG_LABEL = "Wait for deployment finish";
+
   String WAIT_TIMEOUT_SEC_PARAM = "elasticbeanstalk_wait_timeout_sec";
   String WAIT_TIMEOUT_SEC_LABEL = "Timeout (seconds)";
+
   String WAIT_POLL_INTERVAL_SEC_CONFIG_PARAM = "elasticbeanstalk.wait.poll.interval.sec";
   int WAIT_POLL_INTERVAL_SEC_DEFAULT = 20;
 

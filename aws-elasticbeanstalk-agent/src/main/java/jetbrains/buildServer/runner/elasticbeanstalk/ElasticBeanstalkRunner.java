@@ -54,9 +54,10 @@ public class ElasticBeanstalkRunner implements AgentBuildRunner {
         final String applicationName = runnerParameters.get(APP_NAME_PARAM);
         final String environmentName = runnerParameters.get(ENV_NAME_PARAM);
         final String versionLabel = runnerParameters.get(APP_VERSION_PARAM);
+        final Boolean skipDuplicateVersions = Boolean.valueOf(runnerParameters.get(APP_VERSION_SKIP_DUPE_PARAM));
 
         if (!m.problemOccurred && !isInterrupted()) {
-          awsClient.createApplicationVersion(applicationName, versionLabel, s3BucketName, s3ObjectKey);
+          awsClient.createApplicationVersion(applicationName, versionLabel, skipDuplicateVersions, s3BucketName, s3ObjectKey);
         }
 
         if (!m.problemOccurred && !isInterrupted()) {

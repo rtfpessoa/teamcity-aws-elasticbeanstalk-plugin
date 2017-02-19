@@ -42,6 +42,10 @@
 </div>
 
 <div class="parameter">
+    ${app_version_skip_dupe_label}: <strong><props:displayCheckboxValue name="${app_version_skip_dupe_param}"/></strong>
+</div>
+
+<div class="parameter">
     ${wait_flag_label}: <strong><props:displayCheckboxValue name="${wait_flag_param}"/></strong>
 </div>
 
