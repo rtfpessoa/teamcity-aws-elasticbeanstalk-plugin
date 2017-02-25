@@ -140,8 +140,6 @@ public class AWSClient {
     while (true) {
       environment = getEnvironment(environmentId);
 
-      myListener.deploymentInProgress(environment.getEnvironmentName());
-
       status = getHumanReadableStatus(environment.getStatus());
       newEvents = getNewEvents(environmentId, startDate);
 
