@@ -54,7 +54,7 @@ class LoggingDeploymentListener extends AWSClient.Listener {
   void createVersionStarted(@NotNull String applicationName, @NotNull String versionLabel,
                             @NotNull String s3BucketName, @NotNull String s3ObjectKey) {
     open(CREATE_VERSION);
-    log(String.format("Creating application %s version %s with bucket %s and key %s", applicationName, versionLabel, s3BucketName, s3ObjectKey));
+    log(String.format("Creating application %s version %s with bucket %s and key %s.", applicationName, versionLabel, s3BucketName, s3ObjectKey));
   }
 
   @Override
@@ -66,25 +66,24 @@ class LoggingDeploymentListener extends AWSClient.Listener {
   @Override
   void createVersionFinished(@NotNull String applicationName, @NotNull String versionLabel,
                              @NotNull String s3BucketName, @NotNull String s3ObjectKey) {
-    log(String.format("Created application %s version %s with bucket %s and key %s", applicationName, versionLabel, s3BucketName, s3ObjectKey));
+    log(String.format("Created application %s version %s with bucket %s and key %s.", applicationName, versionLabel, s3BucketName, s3ObjectKey));
     close(CREATE_VERSION);
   }
 
   @Override
   void deploymentStarted(@NotNull String applicationName, @NotNull String environmentName, @NotNull String versionLabel) {
     open(UPDATE_ENVIRONMENT);
-    log(String.format("Started deployment of application %s version %s to %s", applicationName, versionLabel, environmentName));
+    log(String.format("Started deployment of application %s version %s to %s.", applicationName, versionLabel, environmentName));
   }
 
   @Override
   void deploymentWaitStarted(@NotNull String environmentName) {
-    log("Waiting for deployment finish");
-    log(String.format("Waiting for deployment on environment %s", environmentName));
+    log("Waiting for deployment finish.");
   }
 
   @Override
   void deploymentInProgress(@NotNull String environmentName) {
-    progress(String.format("Waiting for deployment on environment %s", environmentName));
+    progress(String.format("Waiting for deployment on environment %s.", environmentName));
   }
 
   @Override
@@ -119,8 +118,8 @@ class LoggingDeploymentListener extends AWSClient.Listener {
   }
 
   @Override
-  void deploymentSucceeded(@NotNull String versionLabel) {
-    String message = String.format("Version %s was deployed successfully", versionLabel);
+  void deploymentSucceeded(@NotNull String environmentName, @NotNull String versionLabel) {
+    String message = String.format("Version %s was deployed to %s successfully.", versionLabel, environmentName);
     log(message);
     statusText(message);
     close(UPDATE_ENVIRONMENT);

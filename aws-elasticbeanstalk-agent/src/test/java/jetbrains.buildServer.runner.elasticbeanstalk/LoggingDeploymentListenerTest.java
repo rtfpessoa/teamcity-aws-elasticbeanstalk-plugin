@@ -59,35 +59,34 @@ public class LoggingDeploymentListenerTest extends LoggingTestCase {
 
     listener.deploymentInProgress(FAKE_ENV_NAME);
 
-    listener.deploymentSucceeded(FAKE_APP_VERSION);
+    listener.deploymentSucceeded(FAKE_ENV_NAME, FAKE_APP_VERSION);
 
     assertLog(
       "OPEN " + LoggingDeploymentListener.CREATE_VERSION,
-      "LOG Creating application " + FAKE_APP_NAME + " version " + FAKE_APP_VERSION + " with bucket " + bucketName + " and key " + key,
-      "LOG Created application " + FAKE_APP_NAME + " version " + FAKE_APP_VERSION + " with bucket " + bucketName + " and key " + key,
+      String.format("LOG Creating application %s version %s with bucket %s and key %s.", FAKE_APP_NAME, FAKE_APP_VERSION, bucketName, key),
+      String.format("LOG Created application %s version %s with bucket %s and key %s.", FAKE_APP_NAME, FAKE_APP_VERSION, bucketName, key),
       "CLOSE " + LoggingDeploymentListener.CREATE_VERSION,
       "OPEN " + LoggingDeploymentListener.UPDATE_ENVIRONMENT,
-      "LOG Started deployment of application " + FAKE_APP_NAME + " version " + FAKE_APP_VERSION + " to " + FAKE_ENV_NAME,
-      "LOG Waiting for deployment finish",
-      "LOG Waiting for deployment on environment " + FAKE_ENV_NAME,
-      "PROGRESS Waiting for deployment on environment " + FAKE_ENV_NAME,
-      "LOG Version " + FAKE_APP_VERSION + " was deployed successfully",
-      "STATUS_TEXT Version " + FAKE_APP_VERSION + " was deployed successfully",
+      String.format("LOG Started deployment of application %s version %s to %s.", FAKE_APP_NAME, FAKE_APP_VERSION, FAKE_ENV_NAME),
+      "LOG Waiting for deployment finish.",
+      String.format("PROGRESS Waiting for deployment on environment %s.", FAKE_ENV_NAME),
+      String.format("LOG Version %s was deployed to %s successfully.", FAKE_APP_VERSION, FAKE_ENV_NAME),
+      String.format("STATUS_TEXT Version %s was deployed to %s successfully.", FAKE_APP_VERSION, FAKE_ENV_NAME),
       "CLOSE " + LoggingDeploymentListener.UPDATE_ENVIRONMENT);
   }
 
   @Test
   public void deployment_progress() throws Exception {
     create().deploymentInProgress(FAKE_ENV_NAME);
-    assertLog("PROGRESS Waiting for deployment on environment " + FAKE_ENV_NAME);
+    assertLog(String.format("PROGRESS Waiting for deployment on environment %s.", FAKE_ENV_NAME));
   }
 
   @Test
   public void deployment_succeeded() throws Exception {
-    create().deploymentSucceeded(FAKE_APP_VERSION);
+    create().deploymentSucceeded(FAKE_ENV_NAME, FAKE_APP_VERSION);
     assertLog(
-      "LOG Version " + FAKE_APP_VERSION + " was deployed successfully",
-      "STATUS_TEXT Version " + FAKE_APP_VERSION + " was deployed successfully",
+      String.format("LOG Version %s was deployed to %s successfully.", FAKE_APP_VERSION, FAKE_ENV_NAME),
+      String.format("STATUS_TEXT Version %s was deployed to %s successfully.", FAKE_APP_VERSION, FAKE_ENV_NAME),
       "CLOSE " + LoggingDeploymentListener.UPDATE_ENVIRONMENT);
   }
 

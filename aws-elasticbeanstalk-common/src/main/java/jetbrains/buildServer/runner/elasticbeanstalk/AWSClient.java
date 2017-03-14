@@ -167,7 +167,7 @@ public class AWSClient {
     }
 
     if (isSuccess(environment, versionLabel)) {
-      myListener.deploymentSucceeded(versionLabel);
+      myListener.deploymentSucceeded(environment.getEnvironmentName(), versionLabel);
     } else {
       Listener.ErrorInfo errorEvent = hasError ? getErrorInfo(errorEvents.get(0)) : null;
       myListener.deploymentFailed(environment.getApplicationName(), environment.getEnvironmentName(), versionLabel, false, errorEvent);
@@ -281,7 +281,7 @@ public class AWSClient {
                           @NotNull Boolean hasTimeout, @Nullable ErrorInfo errorInfo) {
     }
 
-    void deploymentSucceeded(@NotNull String versionLabel) {
+    void deploymentSucceeded(@NotNull String environmentName, @NotNull String versionLabel) {
     }
 
     void exception(@NotNull AWSException exception) {
