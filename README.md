@@ -16,7 +16,7 @@ and was adapted for Elastic Beanstalk and slightly ajusted.
 
 ## Release
 
-* [1.0.5](https://github.com/rtfpessoa/teamcity-aws-elasticbeanstalk-plugin/releases/tag/v1.0.5)
+* [1.0.6](https://github.com/rtfpessoa/teamcity-aws-elasticbeanstalk-plugin/releases/tag/v1.0.6)
 * [Previous versions](https://github.com/rtfpessoa/teamcity-aws-elasticbeanstalk-plugin/releases)
 
 ## Contributions
