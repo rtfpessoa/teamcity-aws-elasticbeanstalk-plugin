@@ -35,14 +35,25 @@ public final class AWSRegions {
     REGION_NAMES_FOR_WEB.put("us-west-2", "US West (Oregon)");
     REGION_NAMES_FOR_WEB.put("eu-west-1", "EU West (Dublin)");
     REGION_NAMES_FOR_WEB.put("eu-west-2", "EU West (London)");
+    REGION_NAMES_FOR_WEB.put("eu-west-3", "EU West (Paris)");
     REGION_NAMES_FOR_WEB.put("eu-central-1", "EU Central (Frankfurt)");
+    REGION_NAMES_FOR_WEB.put("eu-north-1", "EU North (Stockholm)");
+    REGION_NAMES_FOR_WEB.put("eu-south-1", "EU South (Milan)");
     REGION_NAMES_FOR_WEB.put("sa-east-1", "South America (Sao Paulo)");
+    REGION_NAMES_FOR_WEB.put("ap-south-1", "Asia Pacific (Mumbai)");
+    REGION_NAMES_FOR_WEB.put("ap-east-1", "Asia Pacific (Hong Kong)");
     REGION_NAMES_FOR_WEB.put("ap-northeast-1", "Asia Pacific (Tokyo)");
     REGION_NAMES_FOR_WEB.put("ap-northeast-2", "Asia Pacific (Seoul)");
+    REGION_NAMES_FOR_WEB.put("ap-northeast-3", "Asia Pacific (Osaka)");
     REGION_NAMES_FOR_WEB.put("ap-southeast-1", "Asia Pacific (Singapore)");
     REGION_NAMES_FOR_WEB.put("ap-southeast-2", "Asia Pacific (Sydney)");
-    REGION_NAMES_FOR_WEB.put("us-gov-west-1", "AWS GovCloud (US)");
+    REGION_NAMES_FOR_WEB.put("af-south-1", "Africa (Cape Town)");
+    REGION_NAMES_FOR_WEB.put("ca-central-1", "Canada (Central)");
+    REGION_NAMES_FOR_WEB.put("us-gov-west-1", "AWS GovCloud (US-West)");
+    REGION_NAMES_FOR_WEB.put("us-gov-east-1", "AWS GovCloud (US-East)");
     REGION_NAMES_FOR_WEB.put("cn-north-1", "China (Beijing)");
+    REGION_NAMES_FOR_WEB.put("sa-east-1", "South America (São Paulo");
+    REGION_NAMES_FOR_WEB.put("me-south-1", "Middle East (Bahrain)");
   }
 
   @NotNull
